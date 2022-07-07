@@ -1,14 +1,18 @@
-import { createRef } from 'react';
+import { createRef, useContext } from 'react';
+import { TodoContext } from '../../../context/todo-context';
 
 export function AddTodo(props) {
     const inputRef = createRef();
+
+    const { addTodo } = useContext(TodoContext);
 
     const add = () => {
         const text = inputRef.current.value;
         if (!text) {
             return;
         }
-        props.addTodo({
+
+        addTodo({
             text,
         });
         inputRef.current.value = '';
