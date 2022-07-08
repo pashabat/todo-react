@@ -1,5 +1,15 @@
 import { createRef, useContext } from 'react';
 import { TodoContext } from '../../../context/todo-context';
+import { filterValues } from '../../../types/filter-values';
+
+function makeId(length) {
+    let result = '';
+    const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+    for (let i = 0; i < length; i++) {
+        result += characters.charAt(Math.floor(Math.random() * characters.length));
+    }
+    return result;
+}
 
 export function AddTodo(props) {
     const inputRef = createRef();
@@ -14,6 +24,8 @@ export function AddTodo(props) {
 
         addTodo({
             text,
+            status: filterValues.new,
+            id: makeId(5),
         });
         inputRef.current.value = '';
     }

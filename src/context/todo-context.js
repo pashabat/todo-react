@@ -1,5 +1,6 @@
-import { createContext, useEffect, useReducer } from "react";
+import { createContext, useEffect, useReducer, useState } from "react";
 import { todoReducer } from '../reducer/todo-reducer';
+import { filterValues } from '../types/filter-values';
 
 export const TodoContext = createContext();
 
@@ -9,6 +10,8 @@ export const TodoContextProvider = (props) => {
         return JSON.parse(items);
     });
 
+    const [filterType, setFilterType] = useState(filterValues.new);
+
     useEffect(() => {
         localStorage.setItem('todo-list-items', JSON.stringify(todoList));
     }, [todoList]);
@@ -17,6 +20,10 @@ export const TodoContextProvider = (props) => {
         todoList,
         addTodo: (todo) => dispatch({ type: 'ADD', payload: todo }),
         delTodo: (id) => dispatch({ type: 'DEL', payload: id }),
+        doneTodo: (id) => dispatch({ type: 'DONE', payload: id }),
+        undoTodo: (id) => dispatch({ type: 'UNDO', payload: id }),
+        filterType,
+        setFilterType: (type) => setFilterType(type),
     };
 
     return (

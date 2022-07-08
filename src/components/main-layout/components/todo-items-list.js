@@ -3,11 +3,13 @@ import { useContext } from 'react';
 import { TodoContext } from '../../../context/todo-context';
 
 export function TodoItemsList(props) {
-    const { todoList } = useContext(TodoContext);
+    const { todoList, filterType } = useContext(TodoContext);
 
     return (
         <ul className="collection items-list">
-            {todoList.map((todo, index) => <TodoItem index={index} todo={todo}/>)}
+            {todoList
+                .filter((todo) => todo.status === filterType || !filterType)
+                .map((todo) => <TodoItem key={todo.id} todo={todo}/>)}
         </ul>
     )
 }
