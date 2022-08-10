@@ -1,6 +1,7 @@
 import { createRef, useContext } from 'react';
 import { TodoContext } from '../../../context/todo-context';
 import { filterValues } from '../../../types/filter-values';
+import { todoAdd } from '../../../actions/todo';
 
 function makeId(length) {
     let result = '';
@@ -14,19 +15,23 @@ function makeId(length) {
 export function AddTodo(props) {
     const inputRef = createRef();
 
-    const { addTodo } = useContext(TodoContext);
+    const { addTodo, dispatch } = useContext(TodoContext);
 
     const add = () => {
         const text = inputRef.current.value;
         if (!text) {
             return;
         }
-
-        addTodo({
+        dispatch(todoAdd({
             text,
             status: filterValues.new,
             id: makeId(5),
-        });
+        }));
+        // addTodo({
+        //     text,
+        //     status: filterValues.new,
+        //     id: makeId(5),
+        // });
         inputRef.current.value = '';
     }
 

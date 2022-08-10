@@ -1,8 +1,14 @@
 import { filterValues } from '../types/filter-values';
 
+export const todoReducerTypes = {
+    ADD: 'ADD'
+}
+// or
+export const TODO_ADD = 'TODO_ADD';
+
 export function todoReducer(state, { type, payload }) {
     switch (type) {
-        case 'ADD':
+        case TODO_ADD:
             return [payload, ...state];
 
         case 'DEL':

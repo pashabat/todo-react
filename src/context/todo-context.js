@@ -1,6 +1,7 @@
 import { createContext, useEffect, useReducer, useState } from "react";
-import { todoReducer } from '../reducer/todo-reducer';
+import { TODO_ADD, todoReducer } from '../reducer/todo-reducer';
 import { filterValues } from '../types/filter-values';
+import { todoAdd } from '../actions/todo';
 
 export const TodoContext = createContext();
 
@@ -18,6 +19,7 @@ export const TodoContextProvider = (props) => {
 
     const value = {
         todoList,
+        dispatch,
         addTodo: (todo) => dispatch({ type: 'ADD', payload: todo }),
         delTodo: (id) => dispatch({ type: 'DEL', payload: id }),
         doneTodo: (id) => dispatch({ type: 'DONE', payload: id }),
